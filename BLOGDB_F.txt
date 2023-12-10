@@ -1,0 +1,38 @@
+/* BlogDB_F: */
+
+CREATE TABLE Post (
+    PostID INT PRIMARY KEY,
+    Titulo VARCHAR(50),
+    DataPublicacao DATE,
+    Comentario VARCHAR(4000),
+    fk_Autor_AutorID INT
+);
+
+CREATE TABLE Autor (
+    AutorID INT PRIMARY KEY,
+    Nome VARCHAR(60),
+    Email VARCHAR(45)
+);
+
+CREATE TABLE Comentario (
+    Texto VARCHAR(1000),
+    DataComentario DATE,
+    ComentarioID INT PRIMARY KEY,
+    fk_Autor_AutorID INT,
+    fk_Post_PostID INT
+);
+ 
+ALTER TABLE Post ADD CONSTRAINT FK_Post_2
+    FOREIGN KEY (fk_Autor_AutorID)
+    REFERENCES Autor (AutorID)
+    ON DELETE CASCADE;
+ 
+ALTER TABLE Comentario ADD CONSTRAINT FK_Comentario_2
+    FOREIGN KEY (fk_Autor_AutorID)
+    REFERENCES Autor (AutorID)
+    ON DELETE CASCADE;
+ 
+ALTER TABLE Comentario ADD CONSTRAINT FK_Comentario_3
+    FOREIGN KEY (fk_Post_PostID)
+    REFERENCES Post (PostID)
+    ON DELETE CASCADE;
